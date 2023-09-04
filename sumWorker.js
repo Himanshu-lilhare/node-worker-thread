@@ -1,5 +1,5 @@
-import {parentPort } from "worker_threads"
-parentPort.on('message',(values)=>{
-    const {num1,num2} = values
-    parentPort.postMessage(parseInt(num1)+parseInt(num2))
-})
+import {parentPort, workerData } from "worker_threads"
+
+
+console.log(workerData.num1 + " Its worker Data ")
+parentPort.postMessage(parseInt(workerData.num1)+parseInt(workerData.num2))

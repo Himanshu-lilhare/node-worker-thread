@@ -5,10 +5,9 @@ const app = express();
 app.get("/calculatesum", (req, res) => {
   let { num1, num2 } = req.query;
 
-  let worker = new Worker("./sumWorker.js");
+  let worker = new Worker("./sumWorker.js",{workerData:{num1,num2}});
 
-  worker.postMessage({ num1, num2 });
-
+ 
   worker.on("message", (data) => {
     res.json(data);
 
