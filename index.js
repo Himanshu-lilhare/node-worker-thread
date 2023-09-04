@@ -2,10 +2,14 @@ import express from "express";
 import {Worker,isMainThread} from "worker_threads"
 const app = express();
 
+function itesMainThread(route){
+  console.log('its main thread ' + route)
+}
+
 app.get("/", (req, res) => {
 
  if(isMainThread){
-    console.log("main thread hai /")
+   itesMainThread(req.path)
  }
 
   let response=0;
@@ -25,7 +29,7 @@ app.get("/longtask", (req, res) => {
 });
 app.get("/longtask2", (req, res) => {
     if(isMainThread){
-        console.log("main thread hai /longtask2")
+     itesMainThread(req.path)
      }
     let worker = new Worker('./worker2.js')
     worker.on('message',(data)=>{
@@ -36,7 +40,7 @@ app.get("/longtask2", (req, res) => {
   });
 app.get("/hello", (req, res) => {
     if(isMainThread){
-        console.log("main thread hai /hello")
+      itesMainThread(req.path)
      }
    res.json("hello")
    
