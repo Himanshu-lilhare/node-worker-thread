@@ -11,6 +11,12 @@ app.get("/calculatesum", (req, res) => {
 
   worker.on("message", (data) => {
     res.json(data);
+
+    worker.terminate();
+  });
+
+  worker.on("exit", (data) => {
+    console.log("Terminated " + data )
   });
 });
 
